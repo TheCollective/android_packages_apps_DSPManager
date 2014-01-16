@@ -46,18 +46,18 @@ public class WM8994 extends PreferenceFragment implements Preference.OnPreferenc
     public static final String BASS_BOOST_ENABLE_FILE = "/sys/class/misc/voodoo_sound/headphone_eq";
 
     public static final String[][] OPTION_CONTROLS = {
-        {"/sys/class/misc/voodoo_sound/speaker_tuning", "pref_wm8994_speaker_tuning"},
-        {"/sys/class/misc/voodoo_sound/mono_downmix", "pref_wm8994_mono_downmix"},
-        {"/sys/class/misc/voodoo_sound/stereo_expansion", "pref_wm8994_stereo_expansion"},
-        {"/sys/class/misc/voodoo_sound/dac_direct", "pref_wm8994_dac_direct"},
-        {"/sys/class/misc/voodoo_sound/dac_osr128", "pref_wm8994_dac_osr128"},
-        {"/sys/class/misc/voodoo_sound/adc_osr128", "pref_wm8994_adc_osr128"},
-        {"/sys/class/misc/voodoo_sound/fll_tuning", "pref_wm8994_fll_tuning"},
-        {BASS_BOOST_ENABLE_FILE, BASS_BOOST_ENABLE_PREF},
+            {"/sys/class/misc/voodoo_sound/speaker_tuning", "pref_wm8994_speaker_tuning"},
+            {"/sys/class/misc/voodoo_sound/mono_downmix", "pref_wm8994_mono_downmix"},
+            {"/sys/class/misc/voodoo_sound/stereo_expansion", "pref_wm8994_stereo_expansion"},
+            {"/sys/class/misc/voodoo_sound/dac_direct", "pref_wm8994_dac_direct"},
+            {"/sys/class/misc/voodoo_sound/dac_osr128", "pref_wm8994_dac_osr128"},
+            {"/sys/class/misc/voodoo_sound/adc_osr128", "pref_wm8994_adc_osr128"},
+            {"/sys/class/misc/voodoo_sound/fll_tuning", "pref_wm8994_fll_tuning"},
+            {BASS_BOOST_ENABLE_FILE, BASS_BOOST_ENABLE_PREF},
     };
 
     public static final String MIC_REC_PRESET[][] = {
-        {"/sys/class/misc/voodoo_sound/recording_preset", "dsp.wm8994.microphone.recording"}
+            {"/sys/class/misc/voodoo_sound/recording_preset", "dsp.wm8994.microphone.recording"}
     };
 
     private static final String PREF_ENABLED = "1";
@@ -72,29 +72,36 @@ public class WM8994 extends PreferenceFragment implements Preference.OnPreferenc
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
-        for (int i = 0; i < OPTION_CONTROLS.length;i++) {
-            String fileName = OPTION_CONTROLS[i][0];
-            mPreferences[i] = (CheckBoxPreference) prefSet.findPreference(OPTION_CONTROLS[i][1]);
-            if (Utils.fileExists(fileName)) {
-                mPreferences[i].setChecked(PREF_ENABLED.equals(Utils.readOneLine(fileName)));
+        for (int i = 0; i < OPTION_CONTROLS.length; i++) {
+            if (Utils.fileExists(OPTION_CONTROLS[i][0])) {
+                mPreferences[i] = (CheckBoxPreference) prefSet.findPreference(OPTION_CONTROLS[i][1]);
+                mPreferences[i].setChecked(PREF_ENABLED.equals(
+                        Utils.readOneLine(OPTION_CONTROLS[i][0])));
                 mPreferences[i].setOnPreferenceChangeListener(this);
             } else {
+                mPreferences[i] = (CheckBoxPreference) prefSet.findPreference(OPTION_CONTROLS[i][1]);
                 mPreferences[i].setSummary(R.string.pref_unavailable);
                 mPreferences[i].setEnabled(false);
             }
         }
 
+        Preference headsetPref = prefSet.findPreference("headphone_amp");
         if (Utils.fileExists(HeadsetAmplifierPreference.FILE_PATH)) {
-            prefSet.findPreference("headphone_amp").setOnPreferenceChangeListener(this);
+            headsetPref.setOnPreferenceChangeListener(this);
         } else {
-            Preference category = prefSet.findPreference("wm8994_headphone_amp_category");
+            PreferenceCategory category = (PreferenceCategory)
+                    prefSet.findPreference("wm8994_headphone_amp_category");
+            category.removePreference(headsetPref);
             prefSet.removePreference(category);
         }
 
+        Preference micPref = prefSet.findPreference(MIC_REC_PRESET[0][1]);
         if (Utils.fileExists(MIC_REC_PRESET[0][0])) {
-            prefSet.findPreference(MIC_REC_PRESET[0][1]).setOnPreferenceChangeListener(this);
+            micPref.setOnPreferenceChangeListener(this);
         } else {
-            Preference category = prefSet.findPreference("wm8994_microphone_recording_category");
+            PreferenceCategory category = (PreferenceCategory)
+                    prefSet.findPreference("wm8994_microphone_recording_category");
+            category.removePreference(micPref);
             prefSet.removePreference(category);
         }
 
@@ -104,10 +111,10 @@ public class WM8994 extends PreferenceFragment implements Preference.OnPreferenc
             bassBoostPreset.setOnPreferenceChangeListener(this);
             bassBoostGainRange.setOnPreferenceChangeListener(this);
         } else {
-            PreferenceCategory bassBoostCategory =
-                    (PreferenceCategory) prefSet.findPreference("wm8994_signal_processing_category");
-            bassBoostCategory.removePreference(bassBoostPreset);
-            bassBoostCategory.removePreference(bassBoostGainRange);
+            PreferenceCategory mBassBoostCategory = (PreferenceCategory)
+                    prefSet.findPreference("wm8994_signal_processing_category");
+            mBassBoostCategory.removePreference(bassBoostPreset);
+            mBassBoostCategory.removePreference(bassBoostGainRange);
         }
     }
 
@@ -164,10 +171,10 @@ public class WM8994 extends PreferenceFragment implements Preference.OnPreferenc
         }
 
         if (Utils.fileExists(MIC_REC_PRESET[0][0])) {
-            Log.d(TAG,"Does " + MIC_REC_PRESET[0][1] + " exist == " +
+            Log.d(TAG, "Does " + MIC_REC_PRESET[0][1] + " exist == " +
                     sharedPrefs.contains(MIC_REC_PRESET[0][1]));
-            Utils.writeValue(MIC_REC_PRESET[0][0], sharedPrefs.getString(MIC_REC_PRESET[0][1],
-                        Utils.readOneLine(MIC_REC_PRESET[0][0])));
+            Utils.writeValue(MIC_REC_PRESET[0][0], sharedPrefs.getString(
+                    MIC_REC_PRESET[0][1], Utils.readOneLine(MIC_REC_PRESET[0][0])));
         }
 
         if (Utils.fileExists(BASS_BOOST_ENABLE_FILE)) {
@@ -175,5 +182,7 @@ public class WM8994 extends PreferenceFragment implements Preference.OnPreferenc
         }
 
         HeadsetAmplifierPreference.restore(context);
+
     }
+
 }

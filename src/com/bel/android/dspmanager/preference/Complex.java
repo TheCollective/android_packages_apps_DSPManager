@@ -6,11 +6,11 @@ package com.bel.android.dspmanager.preference;
  * @author alankila
  */
 class Complex {
-    private final double mReal, mIm;
+    private final double re, im;
 
-    protected Complex(double real, double im) {
-        mReal = real;
-        mIm = im;
+    protected Complex(double re, double im) {
+        this.re = re;
+        this.im = im;
     }
 
     /**
@@ -19,7 +19,7 @@ class Complex {
      * @return length
      */
     protected double rho() {
-        return Math.sqrt(mReal * mReal + mIm * mIm);
+        return Math.sqrt(re * re + im * im);
     }
 
     /**
@@ -28,7 +28,7 @@ class Complex {
      * @return angle in radians
      */
     protected double theta() {
-        return Math.atan2(mIm, mReal);
+        return Math.atan2(im, re);
     }
 
     /**
@@ -37,7 +37,7 @@ class Complex {
      * @return conjugate
      */
     protected Complex con() {
-        return new Complex(mReal, -mIm);
+        return new Complex(re, -im);
     }
 
     /**
@@ -47,7 +47,7 @@ class Complex {
      * @return sum
      */
     protected Complex add(Complex other) {
-        return new Complex(mReal + other.mReal, mIm + other.mIm);
+        return new Complex(re + other.re, im + other.im);
     }
 
     /**
@@ -57,8 +57,7 @@ class Complex {
      * @return multiplication result
      */
     protected Complex mul(Complex other) {
-        return new Complex(mReal * other.mReal - mIm * other.mIm,
-                mReal * other.mIm + mIm * other.mReal);
+        return new Complex(re * other.re - im * other.im, re * other.im + im * other.re);
     }
 
     /**
@@ -68,7 +67,7 @@ class Complex {
      * @return multiplication result
      */
     protected Complex mul(double a) {
-        return new Complex(mReal * a, mIm * a);
+        return new Complex(re * a, im * a);
     }
 
     /**
@@ -78,7 +77,7 @@ class Complex {
      * @return division result
      */
     protected Complex div(Complex other) {
-        double lengthSquared = other.mReal * other.mReal + other.mIm * other.mIm;
+        double lengthSquared = other.re * other.re + other.im * other.im;
         return mul(other.con()).div(lengthSquared);
     }
 
@@ -89,6 +88,6 @@ class Complex {
      * @return division result
      */
     protected Complex div(double a) {
-        return new Complex(mReal / a, mIm / a);
+        return new Complex(re / a, im / a);
     }
 }

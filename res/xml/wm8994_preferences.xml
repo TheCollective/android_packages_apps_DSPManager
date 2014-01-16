@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--  Speaker options -->
@@ -18,13 +17,11 @@
     <PreferenceCategory
         android:key="wm8994_headphone_amp_category"
         android:title="@string/category_wm8994_headphone_amp">
-
         <com.bel.android.dspmanager.preference.HeadsetAmplifierPreference
             android:key="headphone_amp"
             android:title="@string/pref_wm8994_headphone_amp_title"
             android:summary="@string/pref_wm8994_headphone_amp_summary"
             android:dialogTitle="@string/pref_wm8994_headphone_amp_dlg_title" />
-
     </PreferenceCategory>
 
     <!--  Microphone recording options -->
@@ -33,9 +30,9 @@
         android:title="@string/category_wm8994_microphone_recording">
 
         <com.bel.android.dspmanager.preference.SummariedListPreference
-            android:key="dsp.wm8994.microphone.recording"
             android:entries="@array/microphone_recording_presets"
             android:dialogTitle="@string/pref_wm8994_microphone_recording_title"
+            android:key="dsp.wm8994.microphone.recording"
             android:defaultValue="0"
             android:title="@string/pref_wm8994_microphone_recording_title"
             android:entryValues="@array/microphone_recording_presets_values" />
@@ -53,9 +50,9 @@
             android:summary="@string/pref_wm8994_bass_boost_enable_summary" />
 
         <com.bel.android.dspmanager.preference.SummariedListPreference
-            android:key="dsp.wm8994.bassboost.preset"
             android:entries="@array/wm8994_bassboost_modes"
             android:dialogTitle="@string/pref_wm8994_bass_boost_preset_title"
+            android:key="dsp.wm8994.bassboost.preset"
             android:defaultValue="0"
             android:title="@string/pref_wm8994_bass_boost_preset_title"
             android:entryValues="@array/wm8994_bassboost_modes_values" />
@@ -83,15 +80,18 @@
         android:key="wm8994_dac_config_category"
         android:title="@string/category_wm8994_dac_config">
 
-        <CheckBoxPreference android:key="pref_wm8994_dac_direct"
+        <CheckBoxPreference
+            android:key="pref_wm8994_dac_direct"
             android:title="@string/pref_wm8994_dac_direct_title"
             android:summary="@string/pref_wm8994_dac_direct_summary" />
 
-        <CheckBoxPreference android:key="pref_wm8994_dac_osr128"
+        <CheckBoxPreference
+            android:key="pref_wm8994_dac_osr128"
             android:title="@string/pref_wm8994_dac_osr128_title"
             android:summary="@string/pref_wm8994_dac_osr128_summary" />
 
-        <CheckBoxPreference android:key="pref_wm8994_adc_osr128"
+        <CheckBoxPreference
+            android:key="pref_wm8994_adc_osr128"
             android:title="@string/pref_wm8994_adc_osr128_title"
             android:summary="@string/pref_wm8994_adc_osr128_summary" />
 

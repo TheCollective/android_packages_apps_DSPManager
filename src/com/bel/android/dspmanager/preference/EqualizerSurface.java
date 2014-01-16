@@ -20,7 +20,6 @@ import com.bel.android.dspmanager.R;
 public class EqualizerSurface extends SurfaceView {
     private static int MIN_FREQ = 10;
     private static int MAX_FREQ = 21000;
-    private static int SAMPLING_RATE = 44100;
     public static int MIN_DB = -12;
     public static int MAX_DB = 12;
 
@@ -30,8 +29,7 @@ public class EqualizerSurface extends SurfaceView {
     /* Fixme: generalize with frequencies read from equalizer object */
     private float[] mLevels = new float[6];
     private final Paint mWhite, mGridLines, mControlBarText, mControlBar, mControlBarKnob;
-    private final Paint mFrequencyResponseBg;
-    private final Paint mFrequencyResponseHighlight, mFrequencyResponseHighlight2;
+    private final Paint mFrequencyResponseBg, mFrequencyResponseHighlight, mFrequencyResponseHighlight2;
 
     public EqualizerSurface(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -49,18 +47,21 @@ public class EqualizerSurface extends SurfaceView {
 
         mControlBarText = new Paint(mWhite);
         mControlBarText.setTextAlign(Paint.Align.CENTER);
-        mControlBarText.setShadowLayer(2, 0, 0, getResources().getColor(R.color.cb));
+        mControlBarText.setShadowLayer(2, 0, 0, getResources()
+                .getColor(R.color.cb));
 
         mControlBar = new Paint();
         mControlBar.setStyle(Style.STROKE);
         mControlBar.setColor(getResources().getColor(R.color.cb));
         mControlBar.setAntiAlias(true);
         mControlBar.setStrokeCap(Cap.ROUND);
-        mControlBar.setShadowLayer(2, 0, 0, getResources().getColor(R.color.black));
+        mControlBar.setShadowLayer(2, 0, 0, getResources()
+                .getColor(R.color.black));
 
         mControlBarKnob = new Paint();
         mControlBarKnob.setStyle(Style.FILL);
-        mControlBarKnob.setColor(getResources().getColor(R.color.white));
+        mControlBarKnob.setColor(getResources()
+                .getColor(R.color.white));
         mControlBarKnob.setAntiAlias(true);
 
         mFrequencyResponseBg = new Paint();
@@ -70,13 +71,15 @@ public class EqualizerSurface extends SurfaceView {
         mFrequencyResponseHighlight = new Paint();
         mFrequencyResponseHighlight.setStyle(Style.STROKE);
         mFrequencyResponseHighlight.setStrokeWidth(6);
-        mFrequencyResponseHighlight.setColor(getResources().getColor(R.color.freq_hl));
+        mFrequencyResponseHighlight.setColor(getResources()
+                .getColor(R.color.freq_hl));
         mFrequencyResponseHighlight.setAntiAlias(true);
 
         mFrequencyResponseHighlight2 = new Paint();
         mFrequencyResponseHighlight2.setStyle(Style.STROKE);
         mFrequencyResponseHighlight2.setStrokeWidth(3);
-        mFrequencyResponseHighlight2.setColor(getResources().getColor(R.color.freq_hl2));
+        mFrequencyResponseHighlight2.setColor(getResources()
+                .getColor(R.color.freq_hl2));
         mFrequencyResponseHighlight2.setAntiAlias(true);
     }
 
@@ -108,7 +111,7 @@ public class EqualizerSurface extends SurfaceView {
      * assuming close to sRGB behavior of screen (gamma 2.2 approximation).
      *
      * @param intensity desired physical intensity of color component
-     * @param alpha alpha value of color component
+     * @param alpha     alpha value of color component
      */
     private static int gamma(float intensity, float alpha) {
         /* intensity = (component * alpha)^2.2
@@ -116,8 +119,7 @@ public class EqualizerSurface extends SurfaceView {
          * intensity^(1/2.2) / alpha = component
          */
 
-        double gamma = Math.round(255 * Math.pow(intensity, 1 / 2.2) / alpha);
-        return (int) Math.min(255, Math.max(0, gamma));
+        return (int) Math.min(255, Math.max(0, Math.round(255 * Math.pow(intensity, 1 / 2.2) / alpha)));
     }
 
     @Override
@@ -130,39 +132,28 @@ public class EqualizerSurface extends SurfaceView {
 
         float barWidth = res.getDimension(R.dimen.bar_width);
         mControlBar.setStrokeWidth(barWidth);
-        mControlBarKnob.setShadowLayer(barWidth * 0.5f, 0, 0, res.getColor(R.color.off_white));
-
-        /**
-         * red > +7
-         * yellow > +3
-         * holo_blue_bright > 0
-         * holo_blue < 0
-         * holo_blue_dark < 3
-         */
-        int[] responseColors = new int[] {
-            res.getColor(R.color.eq_red),
-            res.getColor(R.color.eq_yellow),
-            res.getColor(R.color.eq_holo_bright),
-            res.getColor(R.color.eq_holo_blue),
-            res.getColor(R.color.eq_holo_dark)
-        };
-        float[] responsePositions = new float[] {
-            0, 0.2f, 0.45f, 0.6f, 1f
-        };
-
+        mControlBarKnob.setShadowLayer(barWidth * 0.5f, 0, 0,
+                res.getColor(R.color.off_white));
         mFrequencyResponseBg.setShader(new LinearGradient(0, 0, 0, mHeight,
-                responseColors, responsePositions, Shader.TileMode.CLAMP));
-
-        int[] barColors = new int[] {
-            res.getColor(R.color.cb_shader),
-            res.getColor(R.color.cb_shader_alpha)
-        };
-        float[] barPositions = new float[] {
-            0, 1
-        };
-
+                /**
+                 * red > +7
+                 * yellow > +3
+                 * holo_blue_bright > 0
+                 * holo_blue < 0
+                 * holo_blue_dark < 3
+                 */
+                new int[]{res.getColor(R.color.eq_red),
+                        res.getColor(R.color.eq_yellow),
+                        res.getColor(R.color.eq_holo_bright),
+                        res.getColor(R.color.eq_holo_blue),
+                        res.getColor(R.color.eq_holo_dark)},
+                new float[]{0, 0.2f, 0.45f, 0.6f, 1f},
+                Shader.TileMode.CLAMP));
         mControlBar.setShader(new LinearGradient(0, 0, 0, mHeight,
-                barColors, barPositions, Shader.TileMode.CLAMP));
+                new int[]{res.getColor(R.color.cb_shader),
+                        res.getColor(R.color.cb_shader_alpha)},
+                new float[]{0, 1},
+                Shader.TileMode.CLAMP));
     }
 
     public void setBand(int i, float value) {
@@ -179,12 +170,12 @@ public class EqualizerSurface extends SurfaceView {
         /* clear canvas */
         canvas.drawRGB(0, 0, 0);
 
-        Biquad[] biquads = new Biquad[] {
-            new Biquad(),
-            new Biquad(),
-            new Biquad(),
-            new Biquad(),
-            new Biquad(),
+        Biquad[] biquads = new Biquad[]{
+                new Biquad(),
+                new Biquad(),
+                new Biquad(),
+                new Biquad(),
+                new Biquad(),
         };
 
         /* The filtering is realized with 2nd order high shelf filters, and each band
@@ -194,14 +185,16 @@ public class EqualizerSurface extends SurfaceView {
          * 1st band has no previous band, so it's just a fixed gain.
          */
         double gain = Math.pow(10, mLevels[0] / 20);
-        for (int i = 0; i < biquads.length; i ++) {
+        for (int i = 0; i < biquads.length; i++) {
             double freq = 15.625 * Math.pow(4, i);
+            int SAMPLING_RATE = 44100;
             biquads[i].setHighShelf(freq * 2, SAMPLING_RATE, mLevels[i + 1] - mLevels[i], 1);
         }
 
         Path freqResponse = new Path();
-        for (int i = 0; i < 71; i ++) {
+        for (int i = 0; i < 71; i++) {
             double freq = reverseProjectX(i / 70f);
+            int SAMPLING_RATE = 44100;
             double omega = freq / SAMPLING_RATE * Math.PI * 2;
             Complex z = new Complex(Math.cos(omega), Math.sin(omega));
 
@@ -239,10 +232,10 @@ public class EqualizerSurface extends SurfaceView {
         canvas.drawPath(freqResponse, mFrequencyResponseHighlight2);
 
         /* Set the width of the bars according to canvas size */
-        canvas.drawRect(0, 0, mWidth-1, mHeight-1, mWhite);
+        canvas.drawRect(0, 0, mWidth - 1, mHeight - 1, mWhite);
 
         /* draw vertical lines */
-        for (int freq = MIN_FREQ; freq < MAX_FREQ;) {
+        for (int freq = MIN_FREQ; freq < MAX_FREQ; ) {
             float x = projectX(freq) * mWidth;
             canvas.drawLine(x, 0, x, mHeight - 1, mGridLines);
             if (freq < 100) {
@@ -263,17 +256,14 @@ public class EqualizerSurface extends SurfaceView {
             canvas.drawText(String.format("%+d", dB), 1, (y - 1), mWhite);
         }
 
-        for (int i = 0; i < mLevels.length; i ++) {
+        for (int i = 0; i < mLevels.length; i++) {
             double freq = 15.625 * Math.pow(4, i);
             float x = projectX(freq) * mWidth;
             float y = projectY(mLevels[i]) * mHeight;
-            String frequencyText = String.format(freq < 1000 ? "%.0f" : "%.0fk",
-                    freq < 1000 ? freq : freq / 1000);
-
             canvas.drawLine(x, mHeight, x, y, mControlBar);
             canvas.drawCircle(x, y, mControlBar.getStrokeWidth() * 0.66f, mControlBarKnob);
             canvas.drawText(String.format("%+1.1f", mLevels[i]), x, mHeight - 2, mControlBarText);
-            canvas.drawText(frequencyText, x, mWhite.getTextSize(), mControlBarText);
+            canvas.drawText(String.format(freq < 1000 ? "%.0f" : "%.0fk", freq < 1000 ? freq : freq / 1000), x, mWhite.getTextSize(), mControlBarText);
         }
     }
 
@@ -308,7 +298,7 @@ public class EqualizerSurface extends SurfaceView {
     public int findClosest(float px) {
         int idx = 0;
         float best = 1e9f;
-        for (int i = 0; i < mLevels.length; i ++) {
+        for (int i = 0; i < mLevels.length; i++) {
             double freq = 15.625 * Math.pow(4, i);
             float cx = projectX(freq) * mWidth;
             float distance = Math.abs(cx - px);

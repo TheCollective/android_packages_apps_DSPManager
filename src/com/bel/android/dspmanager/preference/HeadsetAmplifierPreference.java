@@ -15,7 +15,11 @@ import com.bel.android.dspmanager.R;
 import com.bel.android.dspmanager.activity.Utils;
 
 public class HeadsetAmplifierPreference extends DialogPreference {
+
     private static final String TAG = "HeadsetAmplifierPreference";
+
+    private static final int SEEKBAR_ID = R.id.headphone_amplifier_level_seekbar;
+    private static final int VALUE_DISPLAY_ID = R.id.headphone_amplifier_level_value;
 
     private static final int MAX_VALUE = 62;
     private static final int OFFSET_VALUE = 57;
@@ -38,8 +42,8 @@ public class HeadsetAmplifierPreference extends DialogPreference {
 
         sInstances++;
 
-        SeekBar seekBar = (SeekBar) view.findViewById(R.id.headphone_amplifier_level_seekbar);
-        TextView valueDisplay = (TextView) view.findViewById(R.id.headphone_amplifier_level_value);
+        SeekBar seekBar = (SeekBar) view.findViewById(SEEKBAR_ID);
+        TextView valueDisplay = (TextView) view.findViewById(VALUE_DISPLAY_ID);
         mSeekBar = new HeadsetAmplifierSeekBar(seekBar, valueDisplay, FILE_PATH);
     }
 
@@ -72,7 +76,8 @@ public class HeadsetAmplifierPreference extends DialogPreference {
         return Utils.fileExists(FILE_PATH);
     }
 
-    private class HeadsetAmplifierSeekBar implements SeekBar.OnSeekBarChangeListener {
+    class HeadsetAmplifierSeekBar implements SeekBar.OnSeekBarChangeListener {
+
         private String mFilePath;
         private int mOriginal;
         private SeekBar mSeekBar;
@@ -84,8 +89,8 @@ public class HeadsetAmplifierPreference extends DialogPreference {
             mFilePath = filePath;
 
             // Read original value
-            SharedPreferences prefs = getSharedPreferences();
-            mOriginal = prefs.getInt(mFilePath, Integer.valueOf(Utils.readOneLine(mFilePath)));
+            SharedPreferences sharedPreferences = getSharedPreferences();
+            mOriginal = sharedPreferences.getInt(mFilePath, Integer.valueOf(Utils.readOneLine(mFilePath)));
 
             mSeekBar.setMax(MAX_VALUE);
             reset();
@@ -127,5 +132,6 @@ public class HeadsetAmplifierPreference extends DialogPreference {
         private void updateValue(int progress) {
             mValueDisplay.setText((progress - OFFSET_VALUE) + " dB");
         }
+
     }
 }

@@ -1,7 +1,5 @@
 package com.bel.android.dspmanager.preference;
 
-import java.util.Locale;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +15,16 @@ import android.view.View.OnTouchListener;
 import com.bel.android.dspmanager.R;
 import com.bel.android.dspmanager.service.HeadsetService;
 
+import java.util.Locale;
+
 public class EqualizerPreference extends DialogPreference {
     protected static final String TAG = EqualizerPreference.class.getSimpleName();
 
     protected EqualizerSurface mListEqualizer, mDialogEqualizer;
+
     private HeadsetService mHeadsetService;
 
-    private final ServiceConnection mConnectionForDialog = new ServiceConnection() {
+    private final ServiceConnection connectionForDialog = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder binder) {
             Log.i(TAG, "Acquiring connection to headsetservice");
@@ -46,7 +47,7 @@ public class EqualizerPreference extends DialogPreference {
     protected void updateDspFromDialogEqualizer() {
         if (mHeadsetService != null) {
             float[] levels = new float[6];
-            for (int i = 0; i < levels.length; i ++) {
+            for (int i = 0; i < levels.length; i++) {
                 levels[i] = mDialogEqualizer.getBand(i);
             }
             mHeadsetService.setEqualizerLevels(levels);
@@ -57,7 +58,7 @@ public class EqualizerPreference extends DialogPreference {
         String value = getPersistedString(null);
         if (value != null && mListEqualizer != null) {
             String[] levelsStr = value.split(";");
-            for (int i = 0; i < 6; i ++) {
+            for (int i = 0; i < 6; i++) {
                 mListEqualizer.setBand(i, Float.valueOf(levelsStr[i]));
             }
         }
@@ -78,11 +79,11 @@ public class EqualizerPreference extends DialogPreference {
                 int band = mDialogEqualizer.findClosest(x);
 
                 int wy = v.getHeight();
-                float level = (y / wy) * (EqualizerSurface.MIN_DB - EqualizerSurface.MAX_DB)
-                        - EqualizerSurface.MIN_DB;
+                float level = (y / wy) * (EqualizerSurface.MIN_DB - EqualizerSurface.MAX_DB) - EqualizerSurface.MIN_DB;
                 if (level < EqualizerSurface.MIN_DB) {
                     level = EqualizerSurface.MIN_DB;
-                } else if (level > EqualizerSurface.MAX_DB) {
+                }
+                if (level > EqualizerSurface.MAX_DB) {
                     level = EqualizerSurface.MAX_DB;
                 }
 
@@ -93,31 +94,29 @@ public class EqualizerPreference extends DialogPreference {
         });
 
         if (mListEqualizer != null) {
-            for (int i = 0; i < 6; i ++) {
+            for (int i = 0; i < 6; i++) {
                 mDialogEqualizer.setBand(i, mListEqualizer.getBand(i));
             }
         }
 
-        Intent serviceIntent = new Intent(getContext(), HeadsetService.class);
-        getContext().bindService(serviceIntent, mConnectionForDialog, 0);
+        getContext().bindService(new Intent(getContext(), HeadsetService.class), connectionForDialog, 0);
     }
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            StringBuilder value = new StringBuilder();
-            for (int i = 0; i < 6; i ++) {
-                value.append(String.format(Locale.ROOT, "%.1f", mDialogEqualizer.getBand(i)));
-                value.append(';');
+            String value = "";
+            for (int i = 0; i < 6; i++) {
+                value += String.format(Locale.ROOT, "%.1f", Math.round(mDialogEqualizer.getBand(i) * 10.f) / 10.f) + ";";
             }
-            persistString(value.toString());
+            persistString(value);
             updateListEqualizerFromValue();
         }
 
         if (mHeadsetService != null) {
             mHeadsetService.setEqualizerLevels(null);
         }
-        getContext().unbindService(mConnectionForDialog);
+        getContext().unbindService(connectionForDialog);
     }
 
     @Override

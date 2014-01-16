@@ -1,11 +1,12 @@
 package com.bel.android.dspmanager.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 
 import com.bel.android.dspmanager.R;
 import com.bel.android.dspmanager.preference.EqualizerPreference;
@@ -23,36 +24,31 @@ import com.bel.android.dspmanager.service.HeadsetService;
 public final class DSPScreen extends PreferenceFragment {
     protected static final String TAG = DSPScreen.class.getSimpleName();
 
-    public static final String PREF_KEY_EQ = "dsp.tone.eq";
-    public static final String PREF_KEY_CUSTOM_EQ = "dsp.tone.eq.custom";
-
-    public static final String EQ_VALUE_CUSTOM = "custom";
-
-    private final OnSharedPreferenceChangeListener listener =
-            new OnSharedPreferenceChangeListener() {
+    private final OnSharedPreferenceChangeListener listener = new OnSharedPreferenceChangeListener() {
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             /* If the listpref is updated, copy the changed setting to the eq. */
-            if (PREF_KEY_EQ.equals(key)) {
-                String newValue = prefs.getString(key, null);
-                if (!EQ_VALUE_CUSTOM.equals(newValue)) {
-                    prefs.edit().putString(PREF_KEY_CUSTOM_EQ, newValue).commit();
+            if ("dsp.tone.eq".equals(key)) {
+                String newValue = sharedPreferences.getString(key, null);
+                if (!"custom".equals(newValue)) {
+                    Editor e = sharedPreferences.edit();
+                    e.putString("dsp.tone.eq.custom", newValue);
+                    e.commit();
 
                     /* Now tell the equalizer that it must display something else. */
-                    EqualizerPreference eq =
-                            (EqualizerPreference) findPreference(PREF_KEY_CUSTOM_EQ);
+                    EqualizerPreference eq = (EqualizerPreference)
+                            getPreferenceScreen().findPreference("dsp.tone.eq.custom");
                     eq.refreshFromPreference();
                 }
             }
 
             /* If the equalizer surface is updated, select matching pref entry or "custom". */
-            if (PREF_KEY_CUSTOM_EQ.equals(key)) {
-                String newValue = prefs.getString(key, null);
+            if ("dsp.tone.eq.custom".equals(key)) {
+                String newValue = sharedPreferences.getString(key, null);
 
-                String desiredValue = EQ_VALUE_CUSTOM;
-                SummariedListPreference preset =
-                        (SummariedListPreference) findPreference(PREF_KEY_EQ);
-
+                String desiredValue = "custom";
+                SummariedListPreference preset = (SummariedListPreference)
+                        getPreferenceScreen().findPreference("dsp.tone.eq");
                 for (CharSequence entry : preset.getEntryValues()) {
                     if (entry.equals(newValue)) {
                         desiredValue = newValue;
@@ -62,7 +58,9 @@ public final class DSPScreen extends PreferenceFragment {
 
                 /* Tell listpreference that it must display something else. */
                 if (!desiredValue.equals(preset.getEntry())) {
-                    prefs.edit().putString(PREF_KEY_EQ, desiredValue).commit();
+                    Editor e = sharedPreferences.edit();
+                    e.putString("dsp.tone.eq", desiredValue);
+                    e.commit();
                     preset.refreshFromPreference();
                 }
             }
@@ -75,26 +73,26 @@ public final class DSPScreen extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String config = getArguments().getString("config");
-        PreferenceManager prefMgr = getPreferenceManager();
 
-        prefMgr.setSharedPreferencesName(DSPManager.SHARED_PREFERENCES_BASENAME + "." + config);
+        getPreferenceManager().setSharedPreferencesName(
+                DSPManager.SHARED_PREFERENCES_BASENAME + "." + config);
+        getPreferenceManager().setSharedPreferencesMode(Context.MODE_MULTI_PROCESS);
 
         try {
             int xmlId = R.xml.class.getField(config + "_preferences").getInt(null);
             addPreferencesFromResource(xmlId);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        prefMgr.getSharedPreferences().registerOnSharedPreferenceChangeListener(listener);
+        getPreferenceManager().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(listener);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        PreferenceManager prefMgr = getPreferenceManager();
-        prefMgr.getSharedPreferences().unregisterOnSharedPreferenceChangeListener(listener);
+        getPreferenceManager().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(listener);
     }
 }

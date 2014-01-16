@@ -1,113 +1,96 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--
-     Copyright (C) 2013 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
 <resources>
-  <string name="select_configuration_title">Zvolte nastavení ke změně</string>
-  <string name="headset_title">Sluchátka</string>
-  <string name="speaker_title">Reproduktor</string>
-  <string name="bluetooth_title">Zařízení Bluetooth</string>
-  <string name="usb_title">USB/Dok</string>
-  <string name="audio_effects">Zvukové efekty</string>
-  <string name="pref_unavailable">Tato funkce není na Vašem zařízení dostupná.</string>
-  <string name="dsp_settings_headset">Nastavení DSP - sluchátka</string>
-  <string name="dsp_settings_speaker">Nastavení DSP - reproduktor</string>
-  <string name="dsp_settings_bluetooth">Nastavení DSP - zařízení Bluetooth</string>
-  <string name="dsp_settings_usb">Nastavení DSP - zařízení USB</string>
-  <string name="dsp_settings_wm8994">Nastavení DSP - WM8994</string>
-  <string name="pref_dsp_title">Komprese dynamiky signálu (DRC)</string>
-  <string name="pref_dsp_summary_on">Komprese povolena</string>
-  <string name="pref_dsp_summary_off">Komprese zakázána</string>
-  <string name="pref_dsp_enable">Povolit</string>
-  <string name="pref_effect_title">Zvolte sílu efektu</string>
-  <string name="dialog_effect">Síla efektu</string>
-  <string name="pref_equalizer_title">Ekvalizér</string>
-  <string name="pref_equalizer_summary_on">Ekvalizér povolen</string>
-  <string name="pref_equalizer_summary_off">Ekvalizér zakázán</string>
-  <string name="pref_equalizer_enable">Povolit</string>
-  <string name="pref_equalizer_preset_title">Zvolte předvolbu</string>
-  <string name="pref_equalizer_loudness_title">Kompenzace hlasitosti</string>
-  <string name="pref_bassboost_title">Zvýraznění basů</string>
-  <string name="pref_bassboost_summary_on">Zvýraznění basů povoleno</string>
-  <string name="pref_bassboost_summary_off">Zvýraznění basů zakázáno</string>
-  <string name="pref_bassboost_enable">Povolit</string>
-  <string name="pref_headset_virtual_title">Efekt virtuálního prostoru pro sluchátka</string>
-  <string name="pref_headset_virtual_summary_on">Virtuální prostor povolen</string>
-  <string name="pref_headset_virtual_summary_off">Virtuální prostor zakázán</string>
-  <string name="pref_headset_virtual_enable">Povolit</string>
-  <string name="pref_room_title">Zvolte typ prostoru</string>
-  <string name="dialog_room">Typ prostoru</string>
-  <string name="menu_reset">Vynulovat</string>
+    <string name="select_configuration_title">Zvolte nastavení ke změně</string>
+    <string name="headset_title">Sluchátka</string>
+    <string name="speaker_title">Reproduktor</string>
+    <string name="bluetooth_title">Zařízení Bluetooth</string>
+    <string name="audio_effects">Zvukové efekty</string>
+    <string name="pref_unavailable">Tato funkce není na Vašem zařízení dostupná.</string>
+    <string name="dsp_settings_headset">Nastavení DSP - sluchátka</string>
+    <string name="dsp_settings_speaker">Nastavení DSP - reproduktor</string>
+    <string name="dsp_settings_bluetooth">Nastavení DSP - zařízení Bluetooth</string>
+    <string name="dsp_settings_wm8994">Nastavení DSP - WM8994</string>
+    <string name="pref_dsp_title">Komprese dynamiky signálu (DRC)</string>
+    <string name="pref_dsp_summary_on">Komprese povolena</string>
+    <string name="pref_dsp_summary_off">Komprese zakázána</string>
+    <string name="pref_dsp_enable">Povolit</string>
+    <string name="pref_effect_title">Zvolte sílu efektu</string>
+    <string name="dialog_effect">Síla efektu</string>
+    <string name="pref_equalizer_title">Ekvalizér</string>
+    <string name="pref_equalizer_summary_on">Ekvalizér povolen</string>
+    <string name="pref_equalizer_summary_off">Ekvalizér zakázán</string>
+    <string name="pref_equalizer_enable">Povolit</string>
+    <string name="pref_equalizer_preset_title">Zvolte předvolbu</string>
+    <string name="pref_equalizer_loudness_title">Kompenzace hlasitosti</string>
+    <string name="pref_bassboost_title">Zvýraznění basů</string>
+    <string name="pref_bassboost_summary_on">Zvýraznění basů povoleno</string>
+    <string name="pref_bassboost_summary_off">Zvýraznění basů zakázáno</string>
+    <string name="pref_bassboost_enable">Povolit</string>
+    <string name="pref_headset_virtual_title">Efekt virtuálního prostoru pro sluchátka</string>
+    <string name="pref_headset_virtual_summary_on">Virtuální prostor povolen</string>
+    <string name="pref_headset_virtual_summary_off">Virtuální prostor zakázán</string>
+    <string name="pref_headset_virtual_enable">Povolit</string>
+    <string name="pref_room_title">Zvolte typ prostoru</string>
+    <string name="dialog_room">Typ prostoru</string>
+    <string name="menu_reset">Vynulovat</string>
 
-  <string name="eq_preset_acoustic">Akustický</string>
-  <string name="eq_preset_bass_booster">Zvýraznění basů</string>
-  <string name="eq_preset_bass_reducer">Potlačení basů</string>
-  <string name="eq_preset_classical">Klasika</string>
-  <string name="eq_preset_deep">Hluboký</string>
-  <string name="eq_preset_flat">Plochý</string>
-  <string name="eq_preset_small_speakers">Malé reproduktory</string>
-  <string name="eq_preset_treble_booster">Zvýraznění výšek</string>
-  <string name="eq_preset_treble_reducer">Potlačení výšek</string>
-  <string name="eq_preset_vocal_booster">Zvýraznění řeči</string>
-  <string name="eq_preset_custom">Vlastní</string>
+    <string name="eq_preset_acoustic">Akustický</string>
+    <string name="eq_preset_bass_booster">Zvýraznění basů</string>
+    <string name="eq_preset_bass_reducer">Potlačení basů</string>
+    <string name="eq_preset_classical">Klasika</string>
+    <string name="eq_preset_deep">Hluboký</string>
+    <string name="eq_preset_flat">Plochý</string>
+    <string name="eq_preset_small_speakers">Malé reproduktory</string>
+    <string name="eq_preset_treble_booster">Zvýraznění výšek</string>
+    <string name="eq_preset_treble_reducer">Potlačení výšek</string>
+    <string name="eq_preset_vocal_booster">Zvýraznění řeči</string>
+    <string name="eq_preset_custom">Vlastní</string>
 
-  <!--  WM8994 -->
-  <!--  Categories -->
-  <string name="category_wm8994_internal_speaker">Reproduktor</string>
-  <string name="category_wm8994_signal_processing">Zpracování signálu</string>
-  <string name="category_wm8994_headphone_amp">Sluchátka</string>
-  <string name="category_wm8994_codec_optimization">Optimalizace kodeku</string>
-  <string name="category_wm8994_dac_config">Nastavení D/A převodníku</string>
-  <string name="category_wm8994_analog_path">Nastavení analogové trasy</string>
-  <string name="category_wm8994_mic_settings">Nastavení mikrofonu</string>
-  <string name="category_wm8994_microphone_recording">Mikrofon</string>
-  <!--  Titles/Summaries -->
-  <string name="wm8994_settings_title_head">Nastavení zvuku</string>
-  <string name="wm8994_settings_title_subhead">Nastavení zvuku</string>
-  <string name="wm8994_settings_summary_head">Pokročilé ovládání zvukového procesoru WM8994</string>
-  <string name="pref_wm8994_microphone_recording_title">Předvolba nahrávání</string>
-  <string name="pref_wm8994_headphone_amp_title">Úroveň zesilovače</string>
-  <string name="pref_wm8994_headphone_amp_summary">Upravit analogové zesílení</string>
-  <string name="pref_wm8994_headphone_amp_dlg_title">Úroveň zesilovače pro sluchátka</string>
-  <string name="pref_wm8994_headphone_amp_dlg_desc">Analogové zesílení</string>
-  <string name="pref_wm8994_bass_boost_enable_title">Zvýraznění basů</string>
-  <string name="pref_wm8994_bass_boost_enable_summary">Pokročilé ovládání pro zvýraznění basů</string>
-  <string name="pref_wm8994_bass_boost_title">Rozsah zvýraznění basů</string>
-  <string name="pref_wm8994_bass_boost_summary">Pokročilé ovládání dynamického rozsahu</string>
-  <string name="pref_wm8994_bass_boost_preset_title">Předvolba zvýraznění basů</string>
-  <string name="pref_wm8994_bass_boost_dlg_title">Zvýraznění basů</string>
-  <string name="pref_wm8994_bass_boost_gain_dlg_desc">Zisk</string>
-  <string name="pref_wm8994_bass_boost_range_dlg_desc">Rozsah zvýraznění basů</string>
-  <string name="pref_wm8994_control_enable_title">Povolit ovládání WM8994</string>
-  <string name="pref_wm8994_control_enable_summary">Pokročilé ovládání zvukového procesoru WM8994</string>
-  <string name="pref_wm8994_speaker_tuning_title">Přizpůsobit pro hudbu</string>
-  <string name="pref_wm8994_speaker_tuning_summary">Provede přenastavení HW ekvalizéru pro více basů a vyvážený poslech hudby</string>
-  <string name="pref_wm8994_mono_downmix_title">Převést na mono</string>
-  <string name="pref_wm8994_mono_downmix_summary">Převede stereofonní zvuk na monofonní (pro stereo výstup, např. sluchátka)</string>
-  <string name="pref_wm8994_stereo_expansion_title">Rozšířené stereo</string>
-  <string name="pref_wm8994_stereo_expansion_summary">Stereofonní zvuk bude \u201erozšířen\u201c pomocí DSP</string>
-  <string name="pref_wm8994_dac_direct_title">D/AC přímo</string>
-  <string name="pref_wm8994_dac_direct_summary">Přistupovat k D/A převodníku přímo, obejít mixér kanálů. Způsobí čistější zvuk (vyšší poměr signálu k šumu)</string>
-  <string name="pref_wm8994_dac_osr128_title">Přehrávání Hi-Fi</string>
-  <string name="pref_wm8994_dac_osr128_summary">D/A převodník s 128x přesamplováním \u2014 čistější zvuk při přehrávání hudby</string>
-  <string name="pref_wm8994_adc_osr128_title">Nahrávání Hi-Fi</string>
-  <string name="pref_wm8994_adc_osr128_summary">A/D převodník s 128x přesamplováním \u2014 zvýší kvalitu nahrávaného zvuku</string>
-  <string name="pref_wm8994_fll_tuning_title">Přizpůsobené časování</string>
-  <string name="pref_wm8994_fll_tuning_summary">Bude použito přizpůsobené časování procesoru WM8994 pro zvukové zdroje \u2014 zvýší kvalitu zvuku</string>
+    <!--  WM8994 -->
+    <!--  Categories -->
+    <string name="category_wm8994_internal_speaker">Reproduktor</string>
+    <string name="category_wm8994_signal_processing">Zpracování signálu</string>
+    <string name="category_wm8994_headphone_amp">Sluchátka</string>
+    <string name="category_wm8994_codec_optimization">Optimalizace kodeku</string>
+    <string name="category_wm8994_dac_config">Nastavení D/A převodníku</string>
+    <string name="category_wm8994_analog_path">Nastavení analogové trasy</string>
+    <string name="category_wm8994_mic_settings">Nastavení mikrofonu</string>
+    <string name="category_wm8994_microphone_recording">Mikrofon</string>
+    <!--  Titles/Summaries -->
+    <string name="wm8994_settings_title_head">Nastavení zvuku</string>
+    <string name="wm8994_settings_title_subhead">Nastavení zvuku</string>
+    <string name="wm8994_settings_summary_head">Pokročilé ovládání zvukového procesoru WM8994</string>
+    <string name="pref_wm8994_microphone_recording_title">Předvolba nahrávání</string>
+    <string name="pref_wm8994_headphone_amp_title">Úroveň zesilovače</string>
+    <string name="pref_wm8994_headphone_amp_summary">Upravit analogové zesílení</string>
+    <string name="pref_wm8994_headphone_amp_dlg_title">Úroveň zesilovače pro sluchátka</string>
+    <string name="pref_wm8994_headphone_amp_dlg_desc">Analogové zesílení</string>
+    <string name="pref_wm8994_bass_boost_enable_title">Zvýraznění basů</string>
+    <string name="pref_wm8994_bass_boost_enable_summary">Pokročilé ovládání pro zvýraznění basů</string>
+    <string name="pref_wm8994_bass_boost_title">Rozsah zvýraznění basů</string>
+    <string name="pref_wm8994_bass_boost_summary">Pokročilé ovládání dynamického rozsahu</string>
+    <string name="pref_wm8994_bass_boost_preset_title">Předvolba zvýraznění basů</string>
+    <string name="pref_wm8994_bass_boost_dlg_title">Zvýraznění basů</string>
+    <string name="pref_wm8994_bass_boost_gain_dlg_desc">Zisk</string>
+    <string name="pref_wm8994_bass_boost_range_dlg_desc">Rozsah zvýraznění basů</string>
+    <string name="pref_wm8994_control_enable_title">Povolit ovládání WM8994</string>
+    <string name="pref_wm8994_control_enable_summary">Pokročilé ovládání zvukového procesoru WM8994</string>
+    <string name="pref_wm8994_speaker_tuning_title">Přizpůsobit pro hudbu</string>
+    <string name="pref_wm8994_speaker_tuning_summary">Provede přenastavení HW ekvalizéru pro více basů a vyvážený poslech hudby</string>
+    <string name="pref_wm8994_mono_downmix_title">Převést na mono</string>
+    <string name="pref_wm8994_mono_downmix_summary">Převede stereofonní zvuk na monofonní (pro stereo výstup, např. sluchátka)</string>
+    <string name="pref_wm8994_stereo_expansion_title">Rozšířené stereo</string>
+    <string name="pref_wm8994_stereo_expansion_summary">Stereofonní zvuk bude \u201erozšířen\u201c pomocí DSP</string>
+    <string name="pref_wm8994_dac_direct_title">D/AC přímo</string>
+    <string name="pref_wm8994_dac_direct_summary">Přistupovat k D/A převodníku přímo, obejít mixér kanálů. Způsobí čistější zvuk (vyšší poměr signálu k šumu)</string>
+    <string name="pref_wm8994_dac_osr128_title">Přehrávání Hi-Fi</string>
+    <string name="pref_wm8994_dac_osr128_summary">D/A převodník s 128x přesamplováním \u2014 čistější zvuk při přehrávání hudby</string>
+    <string name="pref_wm8994_adc_osr128_title">Nahrávání Hi-Fi</string>
+    <string name="pref_wm8994_adc_osr128_summary">A/D převodník s 128x přesamplováním \u2014 zvýší kvalitu nahrávaného zvuku</string>
+    <string name="pref_wm8994_fll_tuning_title">Přizpůsobené časování</string>
+    <string name="pref_wm8994_fll_tuning_summary">Bude použito přizpůsobené časování procesoru WM8994 pro zvukové zdroje \u2014 zvýší kvalitu zvuku</string>
 
-  <string name="help_title">Uživatelská příručka</string>
+    <string name="help_title">Uživatelská příručka</string>
   <string name="help_text"><b>Co je DSPManager?</b>\n\nDSPManager je aplikace
 na nastavení efektů zvukového výstupu. <i>DSP</i> znamená digitální signálové
 zpracování (Digital Signal Processing) a <i>Manager</i> znamená, že ono DSP
@@ -115,11 +98,11 @@ není součástí vlastní aplikace, která vytváří zvuk; tento správce mů�
 toto DSP aktivovat pro Android aplikace, které jsou vytvořeny v souladu se
 specifikací zvukového subsystému Androidu - což splňuje většina přehrávačů.\n
 \n<b>Filozofie</b>\n
-\nZvukové zpracování v CyanogenModu podporuje čtyři různé výstupní kategorie:
-drátová sluchátka, USB audio, telefonní reproduktor a sluchátka připojené
-pomocí Bluetooth. Pro každou tuto kategorii je vlastní konfigurační panel.
-Filozofie DSPManagera je upravit jednotlivý zvukový výstup tak, aby bylo
-docíleno nejlepšího poslechu.\n
+\nZvukové zpracování v CyanogenModu podporuje tři různé výstupní kategorie:
+drátová sluchátka, telefonní reproduktor a sluchátka připojené pomocí
+Bluetooth. Pro každou tuto kategorii je vlastní konfigurační panel. Filozofie
+DSPManagera je upravit jednotlivý zvukový výstup tak, aby bylo docíleno
+nejlepšího poslechu.\n
 \nNa rozdíl od zvukových efektů AOSP není toto nastavení rozlišeno na
 jednotlivé aplikace, což byl hlavní záměr této aplikace: upravuje se konkrétní
 zvukový výstup a je jedno, která aplikace do tohoto výstupu generuje zvuk.\n
